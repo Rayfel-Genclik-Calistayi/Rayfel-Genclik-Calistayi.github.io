@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayfel Öğrenci Çalıştayı</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #0F172A;
+            background-color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #38BDF8;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #38BDF8;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #38BDF8;
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 0 5%;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .cta-button {
+            background: #38BDF8;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.4s forwards;
+        }
+
+        .cta-button:hover {
+            background: #0EA5E9;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Section */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #0F172A;
+        }
+
+        /* Hakkında */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #0F172A;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            height: 400px;
+            background: linear-gradient(135deg, #38BDF8, #0EA5E9);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+        }
+
+        /* Amaçlar */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: all 0.2s ease;
+            border: 1px solid #E2E8F0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+
+        /* Başvuru */
+        .application {
+            text-align: center;
+        }
+
+        .app-card {
+            background: white;
+            padding: 4rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .app-card h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: #0F172A;
+        }
+
+        .app-card p {
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 3rem;
+        }
+
+        /* İletişim */
+        .contact {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #0F172A;
+        }
+
+        .contact-item a {
+            color: #38BDF8;
+            text-decoration: none;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #0F172A;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #38BDF8;
+        }
+
+        .submit-btn {
+            background: #38BDF8;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            background: #0EA5E9;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0F172A;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 3%;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .app-card {
+                padding: 2.5rem 2rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Rayfel Öğrenci Çalıştayı</div>
+        <ul class="nav-links">
+            <li><a href="#home">Ana Sayfa</a></li>
+            <li><a href="galeri.html">Galeri</a></li>
+            <li><a href="#apply">Başvuru</a></li>
+            <li><a href="#contact">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <h1>Rayfel Öğrenci Çalıştayı</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco</p>
+        <a href="#apply" class="cta-button">Başvur</a>
+    </section>
+
+    <!-- Hakkında -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Hakkımızda</h2>
+            <div class="about">
+                <div class="about-text">
+                    <h2>Rayfel Öğrenci Çalıştayı Nedir?</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+                <div class="about-image">
+                    Görsel Burada
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amaçlar -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Ne Sunuyoruz?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Eğitim</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Ağ Kurma</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Proje Üretimi</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Başvuru -->
+    <section id="apply" class="section">
+        <div class="container">
+            <div class="application">
+                <div class="app-card">
+                    <h2>Başvuru</h2>
+                    <p>Sınırlı kontenjanımız için hemen başvurun! Seçkin katılımcılar arasına katılmak için formu doldurun.</p>
+                    <a href="https://forms.gle/example" target="_blank" class="cta-button" style="font-size: 1.2rem; padding: 1.2rem 3rem;">
+                        Başvuru Formuna Git
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- İletişim -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">İletişim</h2>
+            <div class="contact">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>E-posta</h3>
+                        <p><a href="mailto:rayfelgckadro@gmail.com">rayfelgckadro@gmail.com</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>Instagram</h3>
+                        <p><a href="https://www.instagram.com/rayfelgc?igsh=MWIzazJvcWZocTdueA==" target="_blank">rayfelgc</a></p>
+                    </div>
+                </div>
+                <form class="contact-form" action="mailto:rayfelgckadro@gmail.com" method="post" enctype="text/plain">
+                    <div class="form-group">
+                        <label>Ad Soyad</label>
+                        <input type="text" name="name" placeholder="Adınızı ve soyadınızı yazın" required>
+                    </div>
+                    <div class="form-group">
+                        <label>E-posta</label>
+                        <input type="email" name="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Mesaj</label>
+                        <textarea name="message" rows="6" placeholder="Mesajınızı buraya yazın..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Mesaj Gönder</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2024 Rayfel Öğrenci Çalıştayı. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+                navbar.style.padding = '0.8rem 5%';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+                navbar.style.padding = '1rem 5%';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
