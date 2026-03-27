@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayfel Gençlik Çalıştayı</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #FFFFFF;
+            background-color: #0A0A0A;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #8B0000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #DC143C;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #DC143C;
+            text-shadow: 0 0 5px rgba(220, 20, 60, 0.5);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(90deg, #DC143C, #8B0000);
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A0000 50%, #0A0A0A 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+            text-shadow: 0 0 20px rgba(220, 20, 60, 0.5);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.2s forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #DC143C, #8B0000);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.4s forwards;
+            box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(220, 20, 60, 0.6);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* Section */
+        .section {
+            padding: 100px 0;
+            background: #0A0A0A;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.3);
+        }
+
+        /* Hakkında */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #DC143C;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #CCCCCC;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-image {
+            height: 400px;
+            background: linear-gradient(135deg, #DC143C, #8B0000);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 40px rgba(220, 20, 60, 0.3);
+        }
+
+        /* Amaçlar */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(220, 20, 60, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(220, 20, 60, 0.3);
+            border-color: #DC143C;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #FFFFFF;
+        }
+
+        .feature-card p {
+            color: #CCCCCC;
+        }
+
+        /* Footer */
+        .footer {
+            background: #000000;
+            color: #CCCCCC;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid #8B0000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 3%;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">Rayfel Gençlik Çalıştayı</div>
+        <ul class="nav-links">
+            <li><a href="#home">Ana Sayfa</a></li>
+            <li><a href="galeri.html">Galeri</a></li>
+            <li><a href="basvuru.html">Başvuru</a></li>
+            <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero -->
+    <section id="home" class="hero">
+        <h1>Rayfel Gençlik Çalıştayı</h1>
+        <p>Lise öğrencileri için akademik gelişim, ağ kurma ve proje üretimi odaklı benzersiz bir çalıştay deneyimi.</p>
+        <a href="basvuru.html" class="cta-button">Başvur</a>
+    </section>
+
+    <!-- Hakkında -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Hakkımızda</h2>
+            <div class="about">
+                <div class="about-text">
+                    <h2>Rayfel Gençlik Çalıştayı Nedir?</h2>
+                    <p>Gençlik çalıştayı; lise öğrencilerinin akademik, sosyal ve toplumsal konular üzerine düşüncelerini ifade edebildiği, farklı bakış açılarını tartışabildiği ve ortak çözüm önerileri geliştirdiği katılımcı bir etkinliktir.</p>
+                    <p>Bu çalıştaylarda öğrenciler, belirlenen başlıklar çerçevesinde grup çalışmaları, tartışma oturumları ve yönlendirilmiş etkinlikler aracılığıyla aktif rol alır. Gençlerin eleştirel düşünme, iletişim ve iş birliği becerilerini geliştirmeyi amaçlayan gençlik çalıştayları, aynı zamanda öğrencilerin kendilerini ifade etme ve sorumluluk alma bilincini güçlendirmeyi hedefler.</p>
+                </div>
+                <div class="about-image">
+                    Görsel Burada
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amaçlar -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Ne Sunuyoruz?</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Eğitim</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Ağ Kurma</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Proje Üretimi</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Rayfel Gençlik Çalıştayı. Tüm hakları saklıdır.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(10, 10, 10, 0.98)';
+                navbar.style.padding = '0.8rem 5%';
+            } else {
+                navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+                navbar.style.padding = '1rem 5%';
+            }
+        });
+    </script>
+</body>
+</html>
