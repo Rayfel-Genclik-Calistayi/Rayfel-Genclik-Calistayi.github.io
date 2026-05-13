@@ -115,12 +115,84 @@
         .hero p {
             font-size: 1.3rem;
             max-width: 600px;
-            margin-bottom: 2.5rem;
+            margin-bottom: 2rem;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 1s ease 0.2s forwards;
             position: relative;
             z-index: 1;
+        }
+
+        /* Countdown Styles */
+        .countdown-container {
+            margin: 2rem 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+            position: relative;
+            z-index: 1;
+        }
+
+        .countdown-title {
+            font-size: 1.2rem;
+            color: #DC143C;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+            font-weight: 600;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.2), rgba(139, 0, 0, 0.2));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(220, 20, 60, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem 1rem;
+            min-width: 100px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(220, 20, 60, 0.2);
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            border-color: #DC143C;
+            box-shadow: 0 15px 40px rgba(220, 20, 60, 0.4);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #DC143C;
+            text-shadow: 0 0 15px rgba(220, 20, 60, 0.7);
+            display: block;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #CCCCCC;
+            margin-top: 0.5rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .countdown-finished {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.3), rgba(220, 20, 60, 0.3));
+            border-color: #8B0000;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
         .cta-button {
@@ -137,7 +209,7 @@
             display: inline-block;
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeInUp 1s ease 0.4s forwards;
+            animation: fadeInUp 1s ease 0.5s forwards;
             box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
             position: relative;
             z-index: 1;
@@ -270,6 +342,19 @@
             .section {
                 padding: 60px 0;
             }
+
+            .countdown {
+                gap: 1rem;
+            }
+
+            .countdown-item {
+                min-width: 80px;
+                padding: 1rem 0.5rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
         }
 
         /* Smooth scroll */
@@ -293,6 +378,34 @@
     <section id="home" class="hero">
         <h1>Rayfel Gençlik Çalıştayı</h1>
         <p>Lise öğrencileri için akademik gelişim, ağ kurma ve proje üretimi odaklı benzersiz bir çalıştay deneyimi.</p>
+        
+        <!-- Countdown -->
+        <div class="countdown-container">
+            <div class="countdown-title">Başlangıca Kalan Süre</div>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Gün</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Saat</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Dakika</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Saniye</span>
+                </div>
+            </div>
+            <div style="font-size: 1rem; color: #CCCCCC; margin-top: 1rem;">
+                16 Mayıs 2025 - 07:00
+            </div>
+        </div>
+
+        <a href="#home" class="cta-button">Detayları Keşfet</a>
     </section>
 
     <!-- Hakkında -->
@@ -340,6 +453,37 @@
     </footer>
 
     <script>
+        // Countdown Functionality
+        function updateCountdown() {
+            // 16 Mayıs 2025 saat 07:00 (Türkiye saati)
+            const targetDate = new Date('2025-05-16T07:00:00+03:00').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                document.getElementById('countdown').innerHTML = `
+                    <div class="countdown-item countdown-finished" style="grid-column: 1 / -1; padding: 2rem;">
+                        <span class="countdown-number" style="font-size: 2rem;">Başladı!</span>
+                        <span class="countdown-label" style="font-size: 1.1rem; color: #DC143C;">Rayfel Gençlik Çalıştayı başladı</span>
+                    </div>
+                `;
+            }
+        }
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+        updateCountdown(); // Initial call
+
         // Navbar scroll effect
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
