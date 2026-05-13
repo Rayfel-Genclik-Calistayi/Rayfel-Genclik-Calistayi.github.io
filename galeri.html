@@ -83,23 +83,39 @@
             gap: 2rem;
         }
 
+        .komite-card {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            background: rgba(20, 20, 20, 0.8);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 2px solid rgba(220, 20, 60, 0.1);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .komite-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(220, 20, 60, 0.3);
+            border-color: #DC143C;
+        }
+
         .gallery-item {
-            height: 300px;
+            height: 250px;
             background-size: cover;
             background-position: center;
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             cursor: pointer;
             transition: all 0.4s ease;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            border: 2px solid rgba(220, 20, 60, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .gallery-item:hover {
-            transform: scale(1.05) rotate(1deg);
-            box-shadow: 0 25px 60px rgba(220, 20, 60, 0.4);
-            border-color: #DC143C;
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(220, 20, 60, 0.4);
         }
 
         .gallery-overlay {
@@ -116,7 +132,7 @@
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         }
@@ -125,15 +141,73 @@
             opacity: 1;
         }
 
+        .gallery-text {
+            color: #FFFFFF;
+            font-size: 1rem;
+            line-height: 1.7;
+            text-align: justify;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #DC143C, #8B0000);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(220, 20, 60, 0.4);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 20, 60, 0.6);
+            background: linear-gradient(135deg, #ff1a47, #a50000);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .gallery-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .section-title {
                 font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .komite-card {
+                padding: 1.2rem;
+                gap: 1rem;
+            }
+
+            .gallery-item {
+                height: 200px;
+            }
+
+            .gallery-overlay {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 3%;
+            }
+
+            .komite-card {
+                padding: 1rem;
+            }
+
+            .gallery-text {
+                font-size: 0.95rem;
             }
         }
     </style>
@@ -154,33 +228,62 @@
         <div class="container">
             <h1 class="section-title">Komitelerimiz</h1>
             <div class="gallery-grid">
-                <div class="gallery-item" style="background-image: url('komite1.png');">
-                    <div class="gallery-overlay">Çevre Komitesi</div>
+                <!-- Çevre Komitesi -->
+                <div class="komite-card">
+                    <div class="gallery-item" style="background-image: url('komite1.png');">
+                        <div class="gallery-overlay">Çevre Komitesi</div>
+                    </div>
+                    <p class="gallery-text">Marmara Bölgesi’nde meydana gelen depremler, bölgenin önemli ve güncel sorunlarından biridir. Olası depremleri konuşmak, riskleri değerlendirmek ve bu konuda çözüm yolları geliştirmek büyük önem taşımaktadır. Güvenli yapılaşma ve afet bilincinin artırılması temel hedefler arasında yer alırken, deprem sonrası oluşabilecek durumlara karşı etkili bir kriz yönetimi planı oluşturmak da hayati bir gerekliliktir.</p>
+                    <a href="cevre_komitesi.pdf" class="download-btn" target="_blank">
+                        📄 Çalışma Rehberi
+                    </a>
                 </div>
-                 <p class="gallery-text">Marmara Bölgesi’nde meydana gelen depremler, bölgenin önemli ve güncel sorunlarından biridir. Olası depremleri konuşmak, riskleri değerlendirmek ve bu konuda çözüm yolları geliştirmek büyük önem taşımaktadır. Güvenli yapılaşma ve afet bilincinin artırılması temel hedefler arasında yer alırken, deprem sonrası oluşabilecek durumlara karşı etkili bir kriz yönetimi planı oluşturmak da hayati bir gerekliliktir. <a href="cevre_komitesi.pdf" style="color: red;">Çalışma Rehberi</a></p>                
-                
-                <div class="gallery-item" style="background-image: url('komite2.png');">
-                    <div class="gallery-overlay">Tarım Komitesi</div>
+
+                <!-- Tarım Komitesi -->
+                <div class="komite-card">
+                    <div class="gallery-item" style="background-image: url('komite2.png');">
+                        <div class="gallery-overlay">Tarım Komitesi</div>
+                    </div>
+                    <p class="gallery-text">Gıda arz ve güvenliğinin sürdürülebilir bir yapıda tutulması, toplumsal refahın ve ekonomik istikrarın korunması adına en kritik önceliktir. Tedarik zincirindeki riskleri minimize etmek, üretim kapasitesini artırmak ve veriye dayalı stratejilerle yönetmek temel hedefler arasında yer alırken, küresel ve yerel kriz senaryolarına karşı dayanıklı bir gıda ekosistemi inşa etmek hayati bir gerekliliktir. Tarım komitemizde daha adil, dengeli ve sürdürülebilir bir gıda sistemi için fikirler geliştirmeyi hedefliyoruz.</p>
+                    <a href="tarim_komitesi.pdf" class="download-btn" target="_blank">
+                        📄 Çalışma Rehberi
+                    </a>
                 </div>
-                 <p class="gallery-text">Gıda arz ve güvenliğinin sürdürülebilir bir yapıda tutulması, toplumsal refahın ve ekonomik istikrarın korunması adına en kritik önceliktir.Tedarik zincirindeki riskleri minimize etmek, üretim kapasitesini artırmak ve veriye dayalı stratejilerle yönetmek temel hedefler arasında yer alırken, küresel ve yerel kriz senaryolarına karşı dayanıklı bir gıda ekosistemi inşa etmek hayati bir gerekliliktir. Tarım komitemizde daha adil,dengeli ve sürdürülebilir bir gıda sistemi için fikirler geliştirmeyi hedefliyoruz. <a href="tarim_komitesi.pdf" style="color: red;">Çalışma Rehberi</a></p>
-                
-                
-                <div class="gallery-item" style="background-image: url('komite3.png');">
-                    <div class="gallery-overlay">Sağlık Komitesi</div>
+
+                <!-- Sağlık Komitesi -->
+                <div class="komite-card">
+                    <div class="gallery-item" style="background-image: url('komite3.png');">
+                        <div class="gallery-overlay">Sağlık Komitesi</div>
+                    </div>
+                    <p class="gallery-text">Pandemi, modern dünyanın karşılaştığı en önemli küresel krizlerden biridir. Sadece bir sağlık sorunu değil; sağlık sistemlerinin dayanıklılığını, kaynak yönetimini ve toplumsal refahı derinden etkileyen çok yönlü bir süreçtir. Bu süreç, sağlık altyapılarındaki eksiklikleri ortaya çıkarmış ve küresel iş birliğinin önemini bir kez daha göstermiştir. Aynı zamanda, gelecekteki olası salgınlara karşı daha hazırlıklı olmak ve sürdürülebilir çözümler geliştirmek gerektiğini açıkça ortaya koymaktadır.</p>
+                    <a href="saglik_komitesi.pdf" class="download-btn" target="_blank">
+                        📄 Çalışma Rehberi
+                    </a>
                 </div>
-                <p class="gallery-text">Pandemi, modern dünyanın karşılaştığı en önemli küresel krizlerden biridir. Sadece bir sağlık sorunu değil; sağlık sistemlerinin dayanıklılığını, kaynak yönetimini ve toplumsal refahı derinden etkileyen çok yönlü bir süreçtir. Bu süreç, sağlık altyapılarındaki eksiklikleri ortaya çıkarmış ve küresel iş birliğinin önemini bir kez daha göstermiştir. Aynı zamanda, gelecekteki olası salgınlara karşı daha hazırlıklı olmak ve sürdürülebilir çözümler geliştirmek gerektiğini açıkça ortaya koymaktadır. <a href="saglik_komitesi.pdf" style="color: red;">Çalışma Rehberi</a></p>
-                
-                
-                <div class="gallery-item" style="background-image: url('komite4.png');">
-                    <div class="gallery-overlay">Milli Güvenlik Komitesi</div>
+
+                <!-- Milli Güvenlik Komitesi -->
+                <div class="komite-card">
+                    <div class="gallery-item" style="background-image: url('komite4.png');">
+                        <div class="gallery-overlay">Milli Güvenlik Komitesi</div>
+                    </div>
+                    <p class="gallery-text">Milli güvenlik, devletin varlığını ve toplum düzenini korumada temel bir unsurdur. Türkiye'nin stratejik konumu, sınır bölgelerinde çeşitli riskleri de beraberinde getirmektedir. Düzensiz göç, kaçakçılık ve terör gibi tehditler hudut güvenliğini daha da önemli hale getirmektedir. Bu nedenle sınırların etkin şekilde korunması, iç güvenliğin sağlanması ve toplumsal istikrarın sürdürülmesi açısından kritik bir rol oynar. Güncel gelişmeler doğrultusunda, güvenlik önlemlerinin artırılması ve daha etkili hale getirilmesi büyük önem taşımaktadır.</p>
+                    <a href="milli_guvenlik_komitesi.pdf" class="download-btn" target="_blank">
+                        📄 Çalışma Rehberi
+                    </a>
                 </div>
-                 <p class="gallery-text">Milli güvenlik, devletin varlığını ve toplum düzenini korumada temel bir unsurdur. Türkiye’nin stratejik konumu, sınır bölgelerinde çeşitli riskleri de beraberinde getirmektedir. Düzensiz göç, kaçakçılık ve terör gibi tehditler hudut güvenliğini daha da önemli hale getirmektedir. Bu nedenle sınırların etkin şekilde korunması, iç güvenliğin sağlanması ve toplumsal istikrarın sürdürülmesi açısından kritik bir rol oynar. Güncel gelişmeler doğrultusunda, güvenlik önlemlerinin artırılması ve daha etkili hale getirilmesi büyük önem taşımaktadır. <a href="milli_guvenlik_komitesi.pdf" style="color: red;">Çalışma Rehberi</a></p>
-                
-                
-                <div class="gallery-item" style="background-image: url('komite5.png');">
-                    <div class="gallery-overlay">Kriz Komitesi</div>
+
+                <!-- Kriz Komitesi -->
+                <div class="komite-card">
+                    <div class="gallery-item" style="background-image: url('komite5.png');">
+                        <div class="gallery-overlay">Kriz Komitesi</div>
+                    </div>
+                    <p class="gallery-text">Kriz masasında işlenecek ana gündem maddemiz dünya tarihinin en önemli kırılma noktalarından biri olan 1. Dünya Savaşı olacaktır. Delegeler bu iki günlük serüvende bu kırılma noktasının canlandırılmasına şahit olacaklardır. Direktiflerinizi, uzlaşı ve iletişim yeteneklerinizi kullanarak bu kırılma anını kendi aleyhinize geliştirmeniz elzemdir.</p>
+                    <a href="kriz_komitesi.pdf" class="download-btn" target="_blank">
+                        📄 Çalışma Rehberi
+                    </a>
                 </div>
-                <p class="gallery-text">Kriz masasında işlenecek ana gündem maddemiz dünya tarihinin en önemli kırılma noktalarından biri olan 1. Dünya Savaşı olacaktır. Delegeler bu iki günlük serüvende bu kırılma noktasının canlandırılmasına şahit olacaklardır. Direktiflerinizi, uzlaşı ve iletişim yeteneklerinizi kullanarak bu kırılma anını kendi aleyhinize geliştirmeniz elzemdir. <a href="kriz_komitesi.pdf" style="color: red;">Çalışma Rehberi</a></p>
-                
-                
-                <div class="gallery-item" style="background-image
+            </div>
+        </div>
+    </section>
+</body>
+</html>
